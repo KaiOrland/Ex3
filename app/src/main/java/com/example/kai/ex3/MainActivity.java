@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
     public void onClick(View v) {
         if (v.getId() == R.id.button5) {
             TextView answer = (TextView) v.findViewById(R.id.textView4);
-            answer.setText(Double.toString(result));
+ //           answer.setText(Double.toString(result));
         }
     }
 }
