@@ -10,30 +10,50 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements TextWatcher, View.OnClickListener {
-    private double result;
-
+public class MainActivity extends AppCompatActivity implements TextWatcher {
+    double result;
+    EditText ed1,ed2;
+    TextView tv;
+    Button b1;
+    Button b2;
+    Button b3;
+    Button b4;
+    Button b5;
+    Button ans;
+    double var1;
+    double var2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EditText ed1 = (EditText)findViewById(R.id.editText);
-        EditText ed2 = (EditText)findViewById(R.id.editText2);
+        b1 = (Button)findViewById(R.id.button);
+        b2 = (Button)findViewById(R.id.button2);
+        b3 = (Button)findViewById(R.id.button3);
+        b4 = (Button)findViewById(R.id.button4);
+        b5 = (Button)findViewById(R.id.button5);
+        ans = (Button)findViewById(R.id.btnAnswer);
+        ans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ed1.setText(Double.toString(result));
+            }
+        });
+        ed1 = (EditText)findViewById(R.id.editText);
+        ed2 = (EditText)findViewById(R.id.editText2);
+        tv = (TextView)findViewById(R.id.textView4);
+        Button btnClear = (Button)findViewById(R.id.btnClear);
         ed1.addTextChangedListener(this);
         ed2.addTextChangedListener(this);
         Button equal = (Button)findViewById(R.id.button5);
-        equal.setOnClickListener(this);
+        equal.setOnClickListener(new myListener());
+        btnClear.setOnClickListener(new myListener());
     }
 
     public void abc(View view){
-        findViewById(R.id.editText);
-        EditText ed1 = (EditText)findViewById(R.id.editText);
         String StrVar1 = ed1.getText().toString();
-        int var1 = Integer.parseInt(StrVar1);
-
-        EditText ed2 = (EditText)findViewById(R.id.editText2);
+        var1 = Double.parseDouble(StrVar1);
         String StrVar2 = ed2.getText().toString();
-        int var2 = Integer.parseInt(StrVar1);
+        var2 = Double.parseDouble(StrVar2);
 
         switch(view.getId())
         {
@@ -77,11 +97,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
 
     }
     private void changeButtonState(boolean newState){
-        Button b1 = (Button)findViewById(R.id.button);
-        Button b2 = (Button)findViewById(R.id.button2);
-        Button b3 = (Button)findViewById(R.id.button3);
-        Button b4 = (Button)findViewById(R.id.button4);
-        Button b5 = (Button)findViewById(R.id.button5);
+
         b1.setEnabled(newState);
         b2.setEnabled(newState);
         b3.setEnabled(newState);
@@ -90,11 +106,29 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
 
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.button5) {
-            TextView answer = (TextView) v.findViewById(R.id.textView4);
- //           answer.setText(Double.toString(result));
+    private class myListener implements View.OnClickListener
+    {
+
+        @Override
+        public void onClick(View v) {
+
+            switch(v.getId()){
+                case R.id.button5:
+                    tv.setText(Double.toString(result));
+
+                    ans.setEnabled(true);
+                    break;
+                case R.id.btnClear:
+                    tv.setText("");
+                    ed1.setText("");
+                    ed2.setText("");
+                    ans.setEnabled(false);
+                    break;
+            }
+
+
         }
     }
+
+
 }
